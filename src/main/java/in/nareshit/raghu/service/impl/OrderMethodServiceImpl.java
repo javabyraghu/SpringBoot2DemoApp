@@ -28,27 +28,30 @@ public class OrderMethodServiceImpl implements IOrderMethodService {
 	@Transactional
 	public void updateOrderMethod(OrderMethod om) {
 		Optional<OrderMethod> opt =  repo.findById(om.getId());
-		if(opt.isEmpty()) 
+		if(opt.isPresent()) 
+			repo.save(om);
+		else
 			throw new OrderNotFoundException("Order Method '"+om.getId()+"' Not Found");
-		repo.save(om);
 	}
 
 	@Override
 	@Transactional
 	public void deleteOrderMethod(Integer id) {
 		Optional<OrderMethod> opt =  repo.findById(id);
-		if(opt.isEmpty()) 
+		if(opt.isPresent()) 
+			repo.delete(opt.get());
+		else
 			throw new OrderNotFoundException("Order Method '"+id+"' Not Found");
-		repo.delete(opt.get());
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Optional<OrderMethod> getOneOrderMethod(Integer id) {
 		Optional<OrderMethod> opt =  repo.findById(id);
-		if(opt.isEmpty()) 
+		if(opt.isPresent()) 
+			return opt;
+		else
 			throw new OrderNotFoundException("Order Method '"+id+"' Not Found");
-		return opt;
 	}
 
 	@Override
@@ -56,8 +59,6 @@ public class OrderMethodServiceImpl implements IOrderMethodService {
 	public List<OrderMethod> getAllOrderMethods() {
 		return repo.findAll();
 	}
-
-
 
 
 }
