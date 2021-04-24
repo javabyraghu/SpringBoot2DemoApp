@@ -17,7 +17,7 @@ public class OrderMethodServiceImpl implements IOrderMethodService {
 
 	@Autowired
 	private OrderMethodRepository repo;
-	
+
 	@Override
 	@Transactional
 	public Integer saveOrderMethod(OrderMethod om) {
@@ -27,28 +27,28 @@ public class OrderMethodServiceImpl implements IOrderMethodService {
 	@Override
 	@Transactional
 	public void updateOrderMethod(OrderMethod om) {
-		 Optional<OrderMethod> opt =  repo.findById(om.getId());
-		 if(opt.isEmpty()) 
-				throw new OrderNotFoundException("Order Method '"+om.getId()+"' Not Found");
+		Optional<OrderMethod> opt =  repo.findById(om.getId());
+		if(opt.isEmpty()) 
+			throw new OrderNotFoundException("Order Method '"+om.getId()+"' Not Found");
 		repo.save(om);
 	}
 
 	@Override
 	@Transactional
 	public void deleteOrderMethod(Integer id) {
-		 Optional<OrderMethod> opt =  repo.findById(id);
-		 if(opt.isEmpty()) 
-				throw new OrderNotFoundException("Order Method '"+id+"' Not Found");
+		Optional<OrderMethod> opt =  repo.findById(id);
+		if(opt.isEmpty()) 
+			throw new OrderNotFoundException("Order Method '"+id+"' Not Found");
 		repo.delete(opt.get());
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Optional<OrderMethod> getOneOrderMethod(Integer id) {
-		 Optional<OrderMethod> opt =  repo.findById(id);
-		 if(opt.isEmpty()) 
-				throw new OrderNotFoundException("Order Method '"+id+"' Not Found");
-		 return opt;
+		Optional<OrderMethod> opt =  repo.findById(id);
+		if(opt.isEmpty()) 
+			throw new OrderNotFoundException("Order Method '"+id+"' Not Found");
+		return opt;
 	}
 
 	@Override
@@ -58,6 +58,6 @@ public class OrderMethodServiceImpl implements IOrderMethodService {
 	}
 
 
-	
-	
+
+
 }
